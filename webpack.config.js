@@ -1,39 +1,59 @@
 var webpack = require('webpack'),
-path = require('path');
-var ExtractTextPlugin = require("extract-text-webpack-plugin");
+path = require('path'),
+ExtractTextPlugin = require("extract-text-webpack-plugin"),
+ProgressBarPlugin = require('progress-bar-webpack-plugin'),
+chalk = require('chalk');
 
-module.exports = 
-{
-	entry: {
-		app: [
-		'./src/js/app.js',
-		'./src/scss/main.scss'
-		]
+module.exports = {
+	devtool: 'eval-source-map',
+	devServer: {
+		stats: {
+			colors: true,
+			hash: false,
+			timings: true,
+			chunks: false,
+			chunkModules: false,
+			modules: false
+		},
+		hot: true,
+		inline: true,
 	},
+	entry: [
+		'webpack-dev-server/client?http://localhost:8080',
+		'webpack/hot/only-dev-server',
+		'./src/js/app',
+	],
 	output: {
 		path: path.join(__dirname, 'build'),
 		publicPath: '/build/',
 		filename: 'bundle.js',
 		sourceMapFilename: "[file].map"
 	},
-	devtool: 'source-map',
-	resolve: {
-		extensions: ['', '.js', '.jsx', '.scss']
-	},
 	module: {
 		loaders: [
 		{
 			test: /\.js$/,
-			loaders: ['react-hot', 'jsx', 'babel'],
-			exclude: /(node_modules|bower_components)/,
+			loaders: ['react-hot', 'babel'],
+			exclude: /(node_modules|bower_components)/
 		},
 		{
 			test: /\.scss$/,
-			loader: ExtractTextPlugin.extract('css-loader?sourceMap!sass-loader?sourceMap=true&sourceMapContents=true')
+			loaders: ['style', 'css', 'sass']
 		}
-		]       
+		],
 	},
-	plugins: [ 
-	new ExtractTextPlugin('main.css')
+	resolve: {
+		extensions: ['', '.js', '.jsx', '.scss'],
+		modulesDirectories: ["./src", "node_modules", "bower_components"]
+	},
+	plugins: [
+	new ProgressBarPlugin(),
+	new webpack.optimize.OccurenceOrderPlugin(),
+	new webpack.HotModuleReplacementPlugin(),
+	new webpack.NoErrorsPlugin(),
+	new ExtractTextPlugin('build/main.css', {
+		allChunks: true
+	}),
 	]
 };
+

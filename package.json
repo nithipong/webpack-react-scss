@@ -4,25 +4,25 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "./node_modules/webpack/bin/webpack.js -p",
-    "start": "./node_modules/webpack-dev-server/bin/webpack-dev-server.js --hot --progress --colors --inline",
-    "dev": "webpack-dev-server --progress --colors --config"
+    "build": "NODE_ENV=production webpack -p --config ./webpack.production.config.js --progress --profile --colors",
+    "dev": "webpack-dev-server -d"
   },
   "author": "nithipong",
   "license": "ISC",
   "devDependencies": {
     "autoprefixer": "^6.4.0",
+    "autoprefixer-loader": "^3.2.0",
     "babel-core": "^6.13.2",
     "babel-loader": "^6.2.4",
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",
+    "babel-preset-stage-0": "^6.5.0",
     "css-loader": "^0.23.1",
+    "eslint": "^3.3.1",
+    "eslint-plugin-react": "^6.1.2",
     "extract-text-webpack-plugin": "^1.0.1",
-    "http-server": "^0.9.0",
-    "jsx-loader": "^0.13.2",
     "node-sass": "^3.8.0",
-    "react": "^15.3.0",
-    "react-dom": "^15.3.0",
+    "progress-bar-webpack-plugin": "^1.9.0",
     "react-hot-loader": "^1.3.0",
     "sass-loader": "^4.0.0",
     "style-loader": "^0.13.1",
@@ -30,6 +30,7 @@
     "webpack-dev-server": "^1.14.1"
   },
   "dependencies": {
-    "babel-loader": "^6.2.4"
+    "react": "^15.3.0",
+    "react-dom": "^15.3.0",
   }
 }

@@ -3,6 +3,8 @@ import ReactDOM from 'react-dom'
 
 import Home from './component/Home'
 
+import style from '../scss/main.scss';
+
 
 
 export default class App extends React.Component {
@@ -19,4 +21,15 @@ export default class App extends React.Component {
     }
 }
 
-ReactDOM.render(<App /> , document.getElementById('app'));
+const rootInstance = ReactDOM.render(<App /> , document.getElementById('app'));
+
+// for use react-hot-loader
+
+if (module.hot) {
+    require('react-hot-loader/Injection').RootInstanceProvider.injectProvider({
+        getRootInstances: function() {
+            return [rootInstance];
+        }
+    });
+}
+

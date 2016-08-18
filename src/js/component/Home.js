@@ -5,8 +5,10 @@ export default class Home extends React.Component {
         this.displayName = '';
     }
     render() {
-        return <div>
-        	<h1>This is Home</h1>
-        </div>;
+        return (
+        	<div>
+        		<h1>React work kub</h1>
+        	</div>
+        );
     }
 }
